@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
-	<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
+<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-	<title>Lista de usuários</title>
+<title>Lista de usuários</title>
 
-	<link rel="stylesheet" th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
-	<script th:scr="@{/jquery-3.6.0.min/jquery-3.6.0.min.js}"></script>
-	<script th:scr="@{/bootstrap-5.2.0-dist/js/bootstrap.min.js}"></script>
+<link rel="stylesheet"
+	th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
+<script th:scr="@{/jquery-3.6.0.min/jquery-3.6.0.min.js}"></script>
+<script th:scr="@{/bootstrap-5.2.0-dist/js/bootstrap.min.js}"></script>
 
 </head>
-
 <body>
 	<div th:insert="fragments/publica-nav :: nav"></div>
 	<div class="container">
@@ -39,9 +38,15 @@
 						<tr th:each="usuario : ${usuarios}">
 							<td><span th:text="${usuario.nome}"> Nome </span></td>
 							<td><span th:text="${usuario.cpf}"> Cpf </span></td>
-							<td><span th:text="${#dates.format(usuario.dataNascimento, 'dd/MM/yyyy')}"> Nascimento
-								</span></td>
+							<td><span
+								th:text="${#dates.format(usuario.dataNascimento, 'dd/MM/yyyy')}">Nascimento
+							</span></td>
 							<td><span th:text="${usuario.email}"> E-mail </span></td>
+							<td><a class="btn btn-outline-danger btn-sm"
+								th:href="@{/usuario/admin/apagar/{id}(id=${usuario.id})}"
+								th:data-confirm-delete="|Você gostaria de apagar ${usuario.nome}?|"
+								onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">Apagar
+							</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -52,5 +57,4 @@
 
 
 </body>
-
 </html>
