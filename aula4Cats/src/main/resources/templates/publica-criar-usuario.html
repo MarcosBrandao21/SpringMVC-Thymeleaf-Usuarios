@@ -2,20 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+<meta charset="UTF-8">
+<title>Cadastro Usuario</title>
 
-	<link rel="stylesheet" th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
-	<script th:scr="@{/jquery-3.6.0.min/jquery-3.6.0.min.js}"></script>
-	<script th:scr="@{/bootstrap-5.2.0-dist/js/bootstrap.min.js}"></script>
+<link rel="stylesheet"
+	th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
+<script th:scr="@{/jquery-3.6.0.min/jquery-3.6.0.min.js}"></script>
+<script th:scr="@{/bootstrap-5.2.0-dist/js/bootstrap.min.js}"></script>
 
 
 
-	<style>
-		.mensagem {
-			color: red;
-		}
-	</style>
+<style>
+.mensagem {
+	color: red;
+}
+</style>
 </head>
 
 <body>
@@ -25,11 +26,13 @@
 		<div class="row">
 			<div class="col">
 				<h2>Cadastro de usuários</h2>
-				<div class="alert alert-success alert-dismissible fade show" th:if="${mensagem}">
+				<div class="alert alert-success alert-dismissible fade show"
+					th:if="${mensagem}">
 					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 					<span th:text="${mensagem}"></span>
 				</div>
-				<form action="#" th:action="@{/usuario/salvar}" th:object="${usuario}" method="post">
+				<form action="#" th:action="@{/usuario/salvar}"
+					th:object="${usuario}" method="post">
 
 					<div class="row mb-3">
 						<label class="col-sm-1 col-form-label">Nome:</label>
@@ -37,17 +40,19 @@
 							<input class="form-control" type="text" th:field="*{nome}">
 						</div>
 						<div class="col-sm-5">
-							<span class="mensagem" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+							<span class="mensagem" th:if="${#fields.hasErrors('nome')}"
+								th:errors="*{nome}"></span>
 						</div>
 					</div>
 
 					<div class="row mb-3">
 						<label class="col-sm-1 col-form-label">CPF:</label>
 						<div class="col-sm-3">
-							<input class="form-control" type="text" th:field="*{cpf}">
+							<input class="form-control cpf-mask" placeholder="cpf sem traços:" maxlength="11" type="text" th:field="*{cpf}">
 						</div>
 						<div class="col-sm-5">
-							<span class="mensagem" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
+							<span class="mensagem" th:if="${#fields.hasErrors('cpf')}"
+								th:errors="*{cpf}"></span>
 						</div>
 					</div>
 
@@ -55,10 +60,12 @@
 					<div class="row mb-3">
 						<label class="col-sm-1 col-form-label">Nascimento:</label>
 						<div class="col-sm-2">
-							<input class="form-control" type="text" th:field="*{dataNascimento}">
+							<input class="form-control" type="date" maxlength="10" min="1900-01-01" max="2022-08-11"
+								th:field="*{dataNascimento}">
 						</div>
 						<div class="col-sm-5">
-							<span class="mensagem" th:if="${#fields.hasErrors('dataNascimento')}"
+							<span class="mensagem"
+								th:if="${#fields.hasErrors('dataNascimento')}"
 								th:errors="*{dataNascimento}"></span>
 						</div>
 					</div>
@@ -67,10 +74,11 @@
 					<div class="row mb-3">
 						<label class="col-sm-1 col-form-label">Email:</label>
 						<div class="col-sm-2">
-							<input class="form-control" type="text" th:field="*{email}">
+							<input class="form-control" type="email" th:field="*{email}">
 						</div>
 						<div class="col-sm-5">
-							<span class="mensagem" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+							<span class="mensagem" th:if="${#fields.hasErrors('email')}"
+								th:errors="*{email}"></span>
 						</div>
 					</div>
 
@@ -80,14 +88,16 @@
 							<input class="form-control" type="text" th:field="*{login}">
 						</div>
 						<div class="col-sm-5">
-							<span class="mensagem" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></span>
+							<span class="mensagem" th:if="${#fields.hasErrors('login')}"
+								th:errors="*{login}"></span> <span class="mensagem"
+								th:if="${loginExiste}" th:text="${loginExiste}"></span>
 						</div>
 					</div>
 
 					<div class="row mb-3">
 						<label class="col-sm-1 col-form-label">Senha:</label>
 						<div class="col-sm-2">
-							<input class="form-control" type="text" th:field="*{password}">
+							<input class="form-control" type="password" maxlength="50" th:field="*{password}">
 						</div>
 						<div class="col-sm-5">
 							<span class="mensagem" th:if="${#fields.hasErrors('password')}"
@@ -103,5 +113,12 @@
 	</div>
 
 </body>
+
+<script type="$('.datepicker').datepicker({
+    format: 'dd/mm/yyyy',
+    startDate: '-3d'
+});">
+
+</script>
 
 </html>

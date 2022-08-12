@@ -1,5 +1,7 @@
 package com.example.aula01.controller;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.aula01.modelo.Role;
 import com.example.aula01.modelo.Usuario;
+import com.example.aula01.repository.RoleRepository;
 import com.example.aula01.repository.UsuarioRepository;
 
 @Controller
@@ -24,6 +28,11 @@ public class UsuarioController {
 	@Autowired
 	private UsuarioRepository usuarioRepository;
 	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	private final String USER = "USER";
+	
 	@GetMapping("/novo")
 	public String adicionarUsuario(Model model) {
 		model.addAttribute("usuario", new Usuario());
@@ -32,9 +41,19 @@ public class UsuarioController {
 	
 	@PostMapping("/salvar")
 	public String salvarUsuario(@Valid Usuario usuario, BindingResult result,
-			RedirectAttributes attributes) {
+			Model model ,RedirectAttributes attributes) {
 		
 		if (result.hasErrors()) return "/publica-criar-usuario";
+		
+		if (usuarioRepository.findByLogin(usuario.getLogin()) != null) {
+			model.addAttribute("loginExiste", "Login já existe cadastrado");
+			return "/publica-criar-usuario";
+		};
+		
+		Role role = roleRepository.findByRole(USER);
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(role);
+		usuario.setRoles(roles);
 		
 		usuarioRepository.save(usuario);
 		attributes.addFlashAttribute("mensagem", "Usuario salvo com sucesso!");
