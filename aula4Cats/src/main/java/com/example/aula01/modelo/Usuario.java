@@ -65,8 +65,9 @@ public class Usuario {
 	private boolean ativo;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "usuario_role", joinColumns = @JoinColumn(name = "usuario_id"),
-				inverseJoinColumns = @JoinColumn(name = "role_id"))
+	@JoinTable(name = "usuario_role",
+			joinColumns = @JoinColumn(name = "usuario_id"),
+			   inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles;
 	
 }

@@ -94,5 +94,17 @@ public class UsuarioController {
 		usuarioRepository.save(usuario);
 		return "redirect:/usuario/admin/listar";
 	}
+	
+	@GetMapping("/editarRole/{id}")
+	public String selecionarRole (@PathVariable("id") long id, Model model) {
+		Optional<Usuario> usuarioExistente = usuarioRepository.findById(id);
+		if (!usuarioExistente.isPresent()) {
+			throw new IllegalArgumentException("Usuario invalido: " + id);
+		}
+		Usuario usuario = usuarioExistente.get();
+		model.addAttribute("usuario", usuario);
+		model.addAttribute("listaRoles", roleRepository.findAll());
+		return "/auth/admin/admin-editar-role-usuario";
+	}
 
 }
