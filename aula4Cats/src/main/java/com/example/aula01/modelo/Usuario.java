@@ -24,6 +24,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -56,7 +57,7 @@ public class Usuario {
 		
 	@NotEmpty(message = "A senha deve ser informada")
 	@Size(min = 3, message = "A senha deve ter no mínimo 3 caracteres")
-	private String password;	
+	private String password;
 	
 	@NotEmpty(message = "O login deve ser informado")
 	@Size(min = 4, message = "O login deve ter no mínimo 4 caracteres")
@@ -65,7 +66,7 @@ public class Usuario {
 	private boolean ativo;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "usuario_role",
+	@JoinTable(name="usuario_role",
 			joinColumns = @JoinColumn(name = "usuario_id"),
 			   inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private List<Role> roles;

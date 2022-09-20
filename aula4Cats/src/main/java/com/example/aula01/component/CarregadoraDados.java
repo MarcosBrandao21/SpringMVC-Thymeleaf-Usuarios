@@ -21,7 +21,7 @@ public class CarregadoraDados implements CommandLineRunner {
 		for (String roleString : roles) {
 			Role role = roleRepository.findByRole(roleString);
 			if (role == null) {
-				role = new Role(null, roleString);
+				role = new Role(roleString);
 				roleRepository.save(role);
 			}
 		}
