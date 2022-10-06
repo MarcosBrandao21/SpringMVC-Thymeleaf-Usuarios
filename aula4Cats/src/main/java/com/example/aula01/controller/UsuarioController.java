@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.aula01.modelo.Role;
@@ -105,6 +106,34 @@ public class UsuarioController {
 		model.addAttribute("usuario", usuario);
 		model.addAttribute("listaRoles", roleRepository.findAll());
 		return "/auth/admin/admin-editar-role-usuario";
+	}
+	
+	@PostMapping("/editarRole/{id}")
+	public String atribuirRole(@PathVariable("id") long idUsuario,
+							   @RequestParam(value = "rls", required = false) int[] rls,
+							   Usuario usuario, RedirectAttributes attributes ) {
+		if(rls == null) {
+			usuario.setId(idUsuario);
+			attributes.addFlashAttribute("mensagem", "Pelo menos uma role deve ser selecionada!");
+			return "redirect:/usuario/editarRole/"+idUsuario;
+		}else {
+			List<Role> roles = new ArrayList<Role>();
+			for (int i = 0; i < rls.length; i++) {
+				long idRole = rls[i];
+				Optional<Role> roleOptional = roleRepository.findById(idRole);
+				if(roleOptional.isPresent()) {
+					Role role = roleOptional.get();
+					roles.add(role);
+				}
+			}
+			Optional<Usuario> usuarioOptional = usuarioRepository.findById(idUsuario);
+			if(usuarioOptional.isPresent()) {
+				Usuario usuarioRecebe = usuarioOptional.get();
+				usuarioRecebe.setRoles(roles); //relaciona roles ao usuario
+				usuarioRepository.save(usuarioRecebe);
+			}
+		}
+		return "redirect:/usuario/admin/listar";
 	}
 
 }
