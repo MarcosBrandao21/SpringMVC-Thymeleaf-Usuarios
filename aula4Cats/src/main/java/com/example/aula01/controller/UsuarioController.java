@@ -103,8 +103,9 @@ public class UsuarioController {
 			throw new IllegalArgumentException("Usuario invalido: " + id);
 		}
 		Usuario usuario = usuarioExistente.get();
+		List<Role> roles = roleRepository.findAll();
 		model.addAttribute("usuario", usuario);
-		model.addAttribute("listaRoles", roleRepository.findAll());
+		model.addAttribute("listaRoles", roles);
 		return "/auth/admin/admin-editar-role-usuario";
 	}
 	
@@ -112,9 +113,9 @@ public class UsuarioController {
 	public String atribuirRole(@PathVariable("id") long idUsuario,
 							   @RequestParam(value = "rls", required = false) int[] rls,
 							   Usuario usuario, RedirectAttributes attributes ) {
-		if(rls == null) {
+		if(rls == null || rls.length > 1) {
 			usuario.setId(idUsuario);
-			attributes.addFlashAttribute("mensagem", "Pelo menos uma role deve ser selecionada!");
+			attributes.addFlashAttribute("mensagem", "Uma Role deve selecionada!");
 			return "redirect:/usuario/editarRole/"+idUsuario;
 		}else {
 			List<Role> roles = new ArrayList<Role>();

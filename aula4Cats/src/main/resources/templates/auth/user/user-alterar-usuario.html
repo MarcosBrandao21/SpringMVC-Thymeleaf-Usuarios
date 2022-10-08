@@ -38,7 +38,7 @@
 			<div class="row mb-3">
 			    <label class="col-sm-1 col-form-label">CPF:</label>
 			    <div class="col-sm-3">
-			    	<input class="form-control" type="text" th:field="*{cpf}"> 
+			    	<input class="form-control cpf-mask" placeholder="cpf sem traços:" maxlength="11" type="text" th:field="*{cpf}">
 			    </div>
 				<div class="col-sm-5"> 
 			    	<span class="mensagem" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}"></span>
@@ -49,7 +49,7 @@
 			<div class="row mb-3">
 			    <label class="col-sm-1 col-form-label">Nascimento:</label>
 			    <div class="col-sm-2">
-			    	<input class="form-control" type="text" th:field="*{dataNascimento}"> 
+			    	<input class="form-control" type="text" maxlength="10" th:field="*{dataNascimento}"> 
 			    </div>
 				<div class="col-sm-5"> 
 			    	<span class="mensagem" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}"></span>
@@ -60,7 +60,7 @@
 			<div class="row mb-3">
 			    <label class="col-sm-1 col-form-label">Email:</label>
 			    <div class="col-sm-2">
-			    	<input class="form-control" type="text" th:field="*{email}"> 
+			    	<input class="form-control" type="email" th:field="*{email}"> 
 			    </div>
 				<div class="col-sm-5"> 
 			    	<span class="mensagem" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
@@ -80,7 +80,7 @@
 			<div class="row mb-3">
 			    <label class="col-sm-1 col-form-label">Senha:</label>
 			    <div class="col-sm-2">
-			    	<input class="form-control" type="text" th:field="*{password}"> 
+			    	<input class="form-control" type="password" maxlength="50" th:field="*{password}"> 
 			    </div>
 				<div class="col-sm-5"> 
 			    	<span class="mensagem" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>

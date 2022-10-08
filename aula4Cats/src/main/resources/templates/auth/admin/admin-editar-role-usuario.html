@@ -69,19 +69,18 @@
 								disabled>
 						</div>
 					</div>					
-
-					<!-- 					não esta puxando a role -->
+					
 					<div class="row mb-3">
 						<label class="col-sm-1 col-form-label">Roles:</label>
 						<div class="col-sm-2">
-							<th:block th:each="rl : ${listaRoles}">								
-								<div th:if="${#lists.contains(usuario.roles, rl)}" class="form-check">
-										<input class="form-check-input" type="checkbox" name="rls"
+							<th:block th:each="rl : ${listaRoles}">								 
+								<div th:if="${usuario.roles[__${0}__].role == rl.role}" class="form-check">
+										<input class="form-check-input" type="radio" name="rls"
 										th:value="${rl.id}" checked/> 
 									<label class="form-check-label" th:text="${rl.role}"></label>
 								</div>
-								<div th:unless="${#lists.contains(usuario.roles, rl)}" class="form-check">
-										<input class="form-check-input" type="checkbox" name="rls"
+								<div th:unless="${usuario.roles[__${0}__].role == rl.role}" class="form-check">
+										<input class="form-check-input" type="radio" name="rls"
 										th:value="${rl.id}" /> 
 									<label class="form-check-label" th:text="${rl.role}"></label>
 								</div>
