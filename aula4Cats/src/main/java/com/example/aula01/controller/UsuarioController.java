@@ -131,6 +131,7 @@ public class UsuarioController {
 			if(usuarioOptional.isPresent()) {
 				Usuario usuarioRecebe = usuarioOptional.get();
 				usuarioRecebe.setRoles(roles); //relaciona roles ao usuario
+				usuarioRecebe.setAtivo(usuario.isAtivo());
 				usuarioRepository.save(usuarioRecebe);
 			}
 		}

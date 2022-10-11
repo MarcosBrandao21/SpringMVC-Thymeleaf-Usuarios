@@ -43,6 +43,8 @@
 							</span></td>
 							<td><span th:text="${usuario.email}"> E-mail </span></td>
 							
+							<td><span th:text="${usuario.ativo} ? 'ATIVO' : 'NÃO ATIVO'"> Ativo? </span></td>
+							
 							<td>
 								<th:block th:each="rl : ${usuario.roles}">
 									<span th:text="${rl.role}"> Role </span><br/>
