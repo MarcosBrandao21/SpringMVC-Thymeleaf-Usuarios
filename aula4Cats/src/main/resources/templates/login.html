@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+<link rel="stylesheet"
+	th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
+<script th:scr="@{/jquery-3.6.0.min/jquery-3.6.0.min.js}"></script>
+<script th:scr="@{/bootstrap-5.2.0-dist/js/bootstrap.min.js}"></script>
+
+
+
+<style>
+.mensagem {
+	color: red;
+}
+</style>
+</head>
+<body>
+	<div th:insert="fragments/publica-nav :: nav"></div>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				
+				<form action="#" method="post">
+
+					<div class="row mb-3">
+						<label class="col-sm-1 col-form-label">Usuário:</label>
+						<div class="col-sm-3">
+							<input class="form-control" type="text" >
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<label class="col-sm-1 col-form-label">Senha:</label>
+						<div class="col-sm-3">
+							<input class="form-control" type="text" >
+						</div>
+					</div>
+					<input class="btn btn-primary" type="submit" value="Entrar" />
+				</form>
+			</div>
+		</div>
+	</div>
+
+</body>
