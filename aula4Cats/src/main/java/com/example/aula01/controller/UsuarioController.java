@@ -7,6 +7,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +34,26 @@ public class UsuarioController {
 	@Autowired
 	private RoleRepository roleRepository;
 	
+	@Autowired
+	private BCryptPasswordEncoder criptografia;
+	
 	private final String USER = "USER";
+	
+	@GetMapping("/index")
+	public String index(@CurrentSecurityContext(expression = "authentication.name")String login) {
+		
+		Usuario usuario = usuarioRepository.findByLogin(login);	
+		
+		String redirectURL = "";
+		if (temAutorizacao(usuario, "ADMIN")) {
+            redirectURL = "/auth/admin/admin-index";
+        } else if (temAutorizacao(usuario, "USER")) {
+            redirectURL = "/auth/user/user-index";
+        } else if (temAutorizacao(usuario, "BIBLIOTECARIO")) {
+            redirectURL = "/auth/bibliotecario/bibliotecario-index";
+        }		
+        return redirectURL;
+	}
 	
 	@GetMapping("/novo")
 	public String adicionarUsuario(Model model) {
@@ -55,6 +76,8 @@ public class UsuarioController {
 		List<Role> roles = new ArrayList<Role>();
 		roles.add(role);
 		usuario.setRoles(roles);
+		String senhaCriptografada = criptografia.encode(usuario.getPassword());
+		usuario.setPassword(senhaCriptografada);
 		
 		usuarioRepository.save(usuario);
 		attributes.addFlashAttribute("mensagem", "Usuario salvo com sucesso!");
@@ -136,6 +159,15 @@ public class UsuarioController {
 			}
 		}
 		return "redirect:/usuario/admin/listar";
+	}
+	
+	private boolean temAutorizacao(Usuario usuario, String role) {
+		for (Role rl : usuario.getRoles()) {
+			if (rl.getRole().equals(role)) {
+				return true;
+			}
+	    }
+		return false;
 	}
 
 }

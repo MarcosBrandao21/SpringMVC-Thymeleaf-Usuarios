@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -21,6 +22,7 @@ import com.example.aula01.repository.UsuarioRepository;
 @Transactional
 public class DetalheUsuarioServico implements UserDetailsService {
 
+	@Autowired
 	private UsuarioRepository usuarioRepository;
 
 	public DetalheUsuarioServico(UsuarioRepository usuarioRepository) {
@@ -29,7 +31,7 @@ public class DetalheUsuarioServico implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-
+		
 		Usuario usuario = usuarioRepository.findByLogin(username);
 
 		if (usuario != null && usuario.isAtivo()) {

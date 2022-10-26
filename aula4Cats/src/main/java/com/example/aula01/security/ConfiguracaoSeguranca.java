@@ -17,7 +17,8 @@ import com.example.aula01.repository.UsuarioRepository;
 @EnableWebSecurity
 public class ConfiguracaoSeguranca  extends WebSecurityConfigurerAdapter{
 	
-private UsuarioRepository usuarioRepository;
+	@Autowired
+	private UsuarioRepository usuarioRepository;
 	
 	@Autowired 
 	private LoginSucesso loginSucesso;
@@ -39,9 +40,9 @@ private UsuarioRepository usuarioRepository;
 		http.authorizeRequests()
 		.antMatchers("/").permitAll()
 		.antMatchers("/auth/user/*").hasAnyAuthority("USER","ADMIN","BIBLIOTECARIO")
-		.antMatchers("/auth/admin/*").hasAnyRole("ADMIN")
-		.antMatchers("/auth/bibliotecario/*").hasAnyRole("BIBLIOTECARIO")
-		.antMatchers("/usuario/admin/*").hasAnyRole("ADMIN")
+		.antMatchers("/auth/admin/*").hasAnyAuthority("ADMIN")
+		.antMatchers("/auth/bibliotecario/*").hasAnyAuthority("BIBLIOTECARIO")
+		.antMatchers("/usuario/admin/*").hasAnyAuthority("ADMIN")
 		.and()
 		.exceptionHandling().accessDeniedPage("/auth/auth-acesso-negado")
 		.and()
