@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>Editar role usuario</title>
+<title th:text="#{admin.editar.role.usuario.title}"></title>
 
 <link rel="stylesheet"
 	th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
@@ -23,13 +23,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h2>Atribuir role</h2>
+				<h2 th:text="#{admin.editar.role.usuario.title}"></h2>
 				<form action="#"
 					th:action="@{/usuario/editarRole/{id}(id=${usuario.id})}"
 					th:object="${usuario}" method="post">
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Nome:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{form.name}"></label>
 						<div class="col-sm-5">
 							<input class="form-control" type="text" th:field="*{nome}"
 								disabled>
@@ -37,7 +37,7 @@
 					</div>
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">CPF:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{form.cpf}"></label>
 						<div class="col-sm-3">
 							<input class="form-control" type="text" th:field="*{cpf}"
 								disabled>
@@ -45,7 +45,7 @@
 					</div>
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Nascimento:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{form.birthday}"></label>
 						<div class="col-sm-2">
 							<input class="form-control" type="text"
 								th:field="*{dataNascimento}" disabled>
@@ -53,7 +53,7 @@
 					</div>
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Email:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{form.email}"></label>
 						<div class="col-sm-2">
 							<input class="form-control" type="text" th:field="*{email}"
 								disabled>
@@ -61,7 +61,7 @@
 					</div>
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Login:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{form.login}"></label>
 						<div class="col-sm-2">
 							<input class="form-control" type="text" th:field="*{login}"
 								disabled>
@@ -69,23 +69,23 @@
 					</div>
 					
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Ativado?:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{admin.editar.role.usuario.actived}"></label>
 						<div class="col-sm-2">
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" value="true"
 									th:field="*{ativo}"> 
-								<label class="form-check-label">ativo</label>
+								<label class="form-check-label" th:text="#{admin.editar.role.usuario.active}"></label>
 							</div>
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" value="false"
 									th:field="*{ativo}"> 
-								<label class="form-check-label">não ativo</label>
+								<label class="form-check-label" th:text="#{admin.editar.role.usuario.notactive}"></label>
 							</div>
 						</div>
 					</div>	
 					
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Roles:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{admin.editar.role.usuario.roles}"></label>
 						<div class="col-sm-2">
 							<th:block th:each="rl : ${listaRoles}">								 
 								<div th:if="${usuario.roles[__${0}__].role == rl.role}" class="form-check">

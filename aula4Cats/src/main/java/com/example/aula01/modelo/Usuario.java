@@ -40,10 +40,10 @@ public class Usuario {
 	private Long id;
 	
 	@NotNull
-	@Size(min = 3, message = "O nome deve ter no mínimo 3 carateres")
+	@Size(min = 3, message = "{validation.nome.min}")
 	private String nome;
 	
-	@CPF(message = "CPF inválido")
+	@CPF(message = "{validation.cpf.valid}")
 	private String cpf; 
 	
 	@Basic
@@ -52,15 +52,15 @@ public class Usuario {
 	@Column(name = "data_nascimento")
 	private Date dataNascimento;
 	
-	@Email(message = "Email inválido")
+	@Email(message = "{validation.email.valid}")
 	private String email;
 		
-	@NotEmpty(message = "A senha deve ser informada")
-	@Size(min = 3, message = "A senha deve ter no mínimo 3 caracteres")
+	@NotEmpty(message = "{validation.password.valid}")
+	@Size(min = 3, message = "{validation.password.min}")
 	private String password;
 	
-	@NotEmpty(message = "O login deve ser informado")
-	@Size(min = 4, message = "O login deve ter no mínimo 4 caracteres")
+	@NotEmpty(message = "{validation.login.valid}")
+	@Size(min = 4, message = "{validation.login.min}")
 	private String login;
 	
 	private boolean ativo;

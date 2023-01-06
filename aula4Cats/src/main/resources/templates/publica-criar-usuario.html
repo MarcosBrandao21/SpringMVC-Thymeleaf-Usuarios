@@ -3,7 +3,7 @@
 
 <head>
 <meta charset="UTF-8">
-<title>Cadastro Usuario</title>
+<title th:text="#{form.register}"></title>
 
 <link rel="stylesheet"
 	th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
@@ -25,7 +25,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h2>Cadastro de usuários</h2>
+				<h2 th:text="#{form.register}"></h2>
 				<div class="alert alert-success alert-dismissible fade show"
 					th:if="${mensagem}">
 					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -35,7 +35,7 @@
 					th:object="${usuario}" method="post">
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Nome:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{form.name}"></label>
 						<div class="col-sm-5">
 							<input class="form-control" type="text" th:field="*{nome}">
 						</div>
@@ -46,7 +46,7 @@
 					</div>
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">CPF:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{form.cpf}"></label>
 						<div class="col-sm-3">
 							<input class="form-control cpf-mask" placeholder="cpf sem traços:" maxlength="11" type="text" th:field="*{cpf}">
 						</div>
@@ -58,7 +58,7 @@
 
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Nascimento:</label>
+						<label class="col-sm-1 col-form-label " th:text="#{form.birthday}"></label>
 						<div class="col-sm-2">
 							<input class="form-control" type="text" maxlength="10"
 								th:field="*{dataNascimento}">
@@ -72,7 +72,7 @@
 
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Email:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{form.email}"></label>
 						<div class="col-sm-2">
 							<input class="form-control" type="email" th:field="*{email}">
 						</div>
@@ -83,7 +83,7 @@
 					</div>
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Login:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{form.login}"></label>
 						<div class="col-sm-2">
 							<input class="form-control" type="text" th:field="*{login}">
 						</div>
@@ -95,7 +95,7 @@
 					</div>
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Senha:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{form.password}"></label>
 						<div class="col-sm-2">
 							<input class="form-control" type="password" maxlength="50" th:field="*{password}">
 						</div>
@@ -105,7 +105,7 @@
 						</div>
 					</div>
 
-					<input class="btn btn-primary" type="submit" value="Gravar" />
+					<input class="btn btn-primary" type="submit" th:value="#{form.button}" />
 				</form>
 
 			</div>

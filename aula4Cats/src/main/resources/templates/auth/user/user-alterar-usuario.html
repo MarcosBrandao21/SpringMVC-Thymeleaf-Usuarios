@@ -22,11 +22,11 @@
 <div class="container">
   <div class="row">  	
     <div class="col">
-    	<h2>Alterar usuário</h2> 
+    	<h2 th:text="#{user.alterar.usuario.edit.user}"></h2> 
 		<form th:action="@{/usuario/editar/{id}(id=${usuario.id})}" th:object="${usuario}" method="post">
 			  
 			<div class="row mb-3">
-			    <label class="col-sm-1 col-form-label">Nome:</label>
+			    <label class="col-sm-1 col-form-label" th:text="#{form.name}"></label>
 			    <div class="col-sm-5">
 			    	<input class="form-control" type="text" th:field="*{nome}"> 
 			    </div>
@@ -36,7 +36,7 @@
 			</div>
 			
 			<div class="row mb-3">
-			    <label class="col-sm-1 col-form-label">CPF:</label>
+			    <label class="col-sm-1 col-form-label" th:text="#{form.cpf}"></label>
 			    <div class="col-sm-3">
 			    	<input class="form-control cpf-mask" placeholder="cpf sem traços:" maxlength="11" type="text" th:field="*{cpf}">
 			    </div>
@@ -47,7 +47,7 @@
 			
 			
 			<div class="row mb-3">
-			    <label class="col-sm-1 col-form-label">Nascimento:</label>
+			    <label class="col-sm-1 col-form-label" th:text="#{form.birthday}"></label>
 			    <div class="col-sm-2">
 			    	<input class="form-control" type="text" maxlength="10" th:field="*{dataNascimento}"> 
 			    </div>
@@ -58,7 +58,7 @@
 			
 			
 			<div class="row mb-3">
-			    <label class="col-sm-1 col-form-label">Email:</label>
+			    <label class="col-sm-1 col-form-label" th:text="#{form.email}"></label>
 			    <div class="col-sm-2">
 			    	<input class="form-control" type="email" th:field="*{email}"> 
 			    </div>
@@ -68,7 +68,7 @@
 			</div>			
 			
 			<div class="row mb-3">
-			    <label class="col-sm-1 col-form-label">Login:</label>
+			    <label class="col-sm-1 col-form-label" th:text="#{form.login}"></label>
 			    <div class="col-sm-2">
 			    	<input class="form-control" type="text" th:field="*{login}"> 
 			    </div>
@@ -78,7 +78,7 @@
 			</div>
 			
 			<div class="row mb-3">
-			    <label class="col-sm-1 col-form-label">Senha:</label>
+			    <label class="col-sm-1 col-form-label" th:text="#{form.password}"></label>
 			    <div class="col-sm-2">
 			    	<input class="form-control" type="password" maxlength="50" th:field="*{password}"> 
 			    </div>
@@ -87,7 +87,7 @@
 			    </div>
 			</div>
 			
-			<input  class="btn btn-primary" type="submit" value="Alterar"/>
+			<input  class="btn btn-primary" type="submit" th:value="#{user.alterar.usuario.edit.button}"/>
 		</form>
     </div>
 </div>

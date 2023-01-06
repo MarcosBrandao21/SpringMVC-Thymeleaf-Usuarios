@@ -3,7 +3,7 @@
 <body>
 	<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-light bg-light">
 		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Biblioteca</a>
+			<a class="navbar-brand" href="#" th:text="#{index.library}"></a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false"
@@ -13,11 +13,18 @@
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="/">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="/usuario/novo">Cadastrar</a>
+						aria-current="page" href="/" th:text="#{index.home}"></a></li>
+					<li class="nav-item"><a class="nav-link" href="/usuario/novo" th:text="#{index.register}"></a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="/login">Entrar</a>
+					<li class="nav-item"><a class="nav-link" href="/login" th:text="#{index.login}"></a>
 					</li>
+					
+					<li class="nav-item"><a class="nav-link" href="/?locale=en_US" th:text="#{index.lang.eng}"></a>
+					</li>
+					
+					<li class="nav-item"><a class="nav-link" href="/?locale=pt_BR" th:text="#{index.lang.pt}"></a>
+					</li>
+					
 				</ul>
 			</div>
 		</div>

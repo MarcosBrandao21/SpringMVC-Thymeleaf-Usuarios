@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Biblioteca</title>
+	<title th:text="#{index.library}"></title>
 
 	<link rel="stylesheet" th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
 	<script th:scr="@{/jquery-3.6.0.min/jquery-3.6.0.min.js}"></script>
@@ -16,7 +16,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<h2 th:text="${msnBenVindo}"></h2>
+				<h2 th:text="#{index.welcome}"></h2>
 			</div>
 		</div>
 	</div>

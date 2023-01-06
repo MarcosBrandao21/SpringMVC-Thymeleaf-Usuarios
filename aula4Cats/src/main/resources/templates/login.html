@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title th:text="#{form.login}"></title>
 <link rel="stylesheet"
 	th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
 <script th:scr="@{/jquery-3.6.0.min/jquery-3.6.0.min.js}"></script>
@@ -25,25 +25,25 @@
 			<div class="alert alert-danger alert-dismissible fade show"
 					th:if="${param.error}">
 					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-					<span>Senha ou usuário inválido</span>
+					<span th:text="#{login.invalid}"></span>
 				</div>
 				
 				<form th:action="@{/login}" method="post">
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Usuário:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{login.username}"></label>
 						<div class="col-sm-3">
 							<input class="form-control" type="text" name="username">
 						</div>
 					</div>
 
 					<div class="row mb-3">
-						<label class="col-sm-1 col-form-label">Senha:</label>
+						<label class="col-sm-1 col-form-label" th:text="#{login.password}"></label>
 						<div class="col-sm-3">
 							<input class="form-control" type="password" maxlength="50" name="password">
 						</div>
 					</div>
-					<input class="btn btn-primary" type="submit" value="Entrar" />
+					<input class="btn btn-primary" type="submit" th:value="#{login.signin}" />
 				</form>
 			</div>
 		</div>

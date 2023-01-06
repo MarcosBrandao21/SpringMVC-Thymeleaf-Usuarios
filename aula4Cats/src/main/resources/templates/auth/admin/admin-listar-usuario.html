@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-<title>Lista de usuários</title>
+<title th:text="#{user.list}"></title>
 
 <link rel="stylesheet"
 	th:href="@{/bootstrap-5.2.0-dist/css/bootstrap.min.css}">
@@ -20,34 +20,34 @@
 		<div class="row">
 
 			<div class="col">
-				<h1>Lista de Usuários</h1>
+				<h1 th:text="#{user.list}"></h1>
 
 				<table class="table table-striped">
 					<thead>
 						<tr>
-							<th>Nome</th>
-							<th>CPF</th>
-							<th>Nascimento</th>
-							<th>E-mail</th>
+							<th th:text="#{form.name}"></th>
+							<th th:text="#{form.cpf}"></th>
+							<th th:text="#{form.birthday}"></th>
+							<th th:text="#{form.email}"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:if="${usuarios.empty}">
-							<td colspan="2">Sem usuários</td>
+							<td colspan="2" th:text="#{user.no}"></td>
 						</tr>
 						<tr th:each="usuario : ${usuarios}">
-							<td><span th:text="${usuario.nome}"> Nome </span></td>
-							<td><span th:text="${usuario.cpf}"> Cpf </span></td>
+							<td><span th:text="${usuario.nome}"> <span th:text="#{form.name}"></span> </span></td>
+							<td><span th:text="${usuario.cpf}"> <span th:text="#{form.cpf}"></span></span></td>
 							<td><span
-								th:text="${#dates.format(usuario.dataNascimento, 'dd/MM/yyyy')}">Nascimento
-							</span></td>
-							<td><span th:text="${usuario.email}"> E-mail </span></td>
+								th:text="${#dates.format(usuario.dataNascimento, 'dd/MM/yyyy')}" ><span th:text="#{form.birthday}">
+							</span></span></td>
+							<td><span th:text="${usuario.email}"> <span th:text="#{form.email}"></span></span></td>
 							
-							<td><span th:text="${usuario.ativo} ? 'ATIVO' : 'NÃO ATIVO'"> Ativo? </span></td>
+							<td><span th:text="${usuario.ativo} ? 'ATIVO' : 'NÃO ATIVO'"> <span th:text="#{admin.editar.role.usuario.actived}"></span></span></td>
 							
 							<td>
 								<th:block th:each="rl : ${usuario.roles}">
-									<span th:text="${rl.role}"> Role </span><br/>
+									<span th:text="${rl.role}"><span th:text="#{admin.editar.role.usuario.roles}"></span></span><br/>
 								</th:block>							
 							</td>
 							
@@ -55,13 +55,13 @@
 							<td><a class="btn btn-outline-danger btn-sm"
 								th:href="@{/usuario/admin/apagar/{id}(id=${usuario.id})}"
 								th:data-confirm-delete="|Você gostaria de apagar ${usuario.nome}?|"
-								onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false">Apagar
+								onclick="if (!confirm(this.getAttribute('data-confirm-delete'))) return false" th:text="#{admin.listar.usuario.delete}">
 							</a></td>
 							<td><a class="btn btn-outline-primary btn-sm"
-								th:href="@{/usuario/editar/{id}(id=${usuario.id})}"> Editar</a>
+								th:href="@{/usuario/editar/{id}(id=${usuario.id})}" th:text="#{admin.editar.role.usuario.edit}"></a>
 							</td>
 							<td><a class="btn btn-outline-primary btn-sm"
-								th:href="@{/usuario/editarRole/{id}(id=${usuario.id})}"> Roles</a>
+								th:href="@{/usuario/editarRole/{id}(id=${usuario.id})}" th:text="#{admin.editar.role.usuario.roles}"></a>
 							</td>
 						</tr>
 					</tbody>

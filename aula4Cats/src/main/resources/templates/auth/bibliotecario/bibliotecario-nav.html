@@ -3,17 +3,17 @@
 <body>
   <nav th:fragment="nav" class="navbar navbar-expand-sm navbar-light bg-light">
         <div class="container-fluid">
-            <a href="#" class="navbar-brand">Biblioteca</a>
+            <a href="#" class="navbar-brand" th:text="#{index.library}"></a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div id="navbarCollapse" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="nav-item">
-                        <a href="/usuario/index" class="nav-link">Home</a>
+                        <a href="/usuario/index" class="nav-link" th:text="#{index.home}"></a>
                     </li>
                     <li class="nav-item">
-                            <a href="#" class="nav-link">Obras</a>
+                            <a href="#" class="nav-link" th:text="#{biblio.nav.works}"></a>
                     </li>
                 </ul>               
                 <ul th:replace="auth/auth-nav :: nav"> </ul>   
