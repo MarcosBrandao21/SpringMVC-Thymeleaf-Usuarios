@@ -7,8 +7,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.example.aula01.repository.UsuarioRepository;
@@ -51,6 +55,14 @@ public class ConfiguracaoSeguranca  extends WebSecurityConfigurerAdapter{
 		.and()
 		.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		.logoutSuccessUrl("/").permitAll();
+		
+		http
+		.sessionManagement()
+		.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+		.maximumSessions(1)
+		.maxSessionsPreventsLogin(false)
+		.sessionRegistry(sessionRegistry())
+		.expiredUrl("/login");
 	}
 	
 	@Override
@@ -62,7 +74,17 @@ public class ConfiguracaoSeguranca  extends WebSecurityConfigurerAdapter{
 		
 		auth.userDetailsService(detalheDoUsuario).passwordEncoder(criptografia);
 	}
-
+	
+	@Bean
+	public SessionRegistry sessionRegistry() {
+		return new SessionRegistryImpl();
+	}
+	
+	@Bean
+	public HttpSessionEventPublisher httpSessionEventPublisher() {
+	    return new HttpSessionEventPublisher();
+	}
+	
 
 //	@Bean
 //	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {

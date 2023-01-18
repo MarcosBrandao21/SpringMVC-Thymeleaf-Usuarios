@@ -3,6 +3,7 @@ package com.example.aula01.security;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -75,6 +76,23 @@ public class DetalheUsuario implements UserDetails {
 			return usuario.getNome();
 		}
 		return "NOME DE USUARIO NÃO LOCALIZADO";
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(usuario.getLogin());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		DetalheUsuario other = (DetalheUsuario) obj;
+		return Objects.equals(usuario.getLogin(), other.usuario.getLogin());
 	}
 
 }
