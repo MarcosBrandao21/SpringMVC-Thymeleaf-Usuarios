@@ -64,7 +64,6 @@ public class UsuarioController {
 			model.addAttribute("loginExiste", "Login já existe cadastrado");
 			return "/publica-criar-usuario";
 		}
-		;
 		usuarioService.gravarUsuario(usuario);
 
 		attributes.addFlashAttribute("mensagem", "Usuario salvo com sucesso!");
