@@ -12,8 +12,15 @@
                     <li class="nav-item">
                         <a href="/usuario/index" class="nav-link" th:text="#{index.home}"></a>
                     </li>
-                    <li class="nav-item">
-                         <a href="/usuario/admin/listar" class="nav-link" th:text="#{admin.nav.users}"></a>
+                    <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" th:text="#{admin.nav.management}"></a>
+                    
+                     	<div class="dropdown-menu">
+                         	<a href="/usuario/admin/listar" class="nav-link" th:text="#{admin.nav.users}"></a>
+                        </div>
+                    </li>
+                    <li>
+                    <a href="/usuario/admin/listar" class="nav-link" th:text="#{admin.nav.users}"></a>
                     </li>
                 </ul>                
                 <ul th:replace="auth/auth-nav :: nav"> </ul>   
