@@ -27,7 +27,11 @@ public class RoleServiceImpl implements RoleService {
 
 	@Override
 	public Role buscarRole(String role) {
-		return repository.findByRole(role);
+		Role roleEntity = repository.findByRole(role);
+		if(roleEntity != null) {
+			return roleEntity;
+		}
+		throw new IllegalArgumentException("Essa role: " + role + "não existe!");
 	}
 
 	@Override

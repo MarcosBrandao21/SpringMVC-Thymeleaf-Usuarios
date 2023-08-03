@@ -30,6 +30,12 @@ public class UsuarioController {
 
 	@Autowired
 	private RoleService roleService;
+	
+	private static final String RETURN_CRIAR_USUARIO= "/publica-criar-usuario";
+	
+	private static final String REDIRECT_LISTAR = "redirect:/usuario/admin/listar";
+	
+	private static final String RETURN_ALTERAR_URUARIO = "/auth/user/user-alterar-usuario";
 
 	@GetMapping("/index")
 	public String index(@CurrentSecurityContext(expression = "authentication.name") String login) {
@@ -50,7 +56,7 @@ public class UsuarioController {
 	@GetMapping("/novo")
 	public String adicionarUsuario(Model model) {
 		model.addAttribute("usuario", new Usuario());
-		return "/publica-criar-usuario";
+		return RETURN_CRIAR_USUARIO;
 	}
 
 	@PostMapping("/salvar")
@@ -58,11 +64,11 @@ public class UsuarioController {
 			RedirectAttributes attributes) {
 
 		if (result.hasErrors())
-			return "/publica-criar-usuario";
+			return RETURN_CRIAR_USUARIO;
 
 		if (usuarioService.buscarUsuarioPorLogin(usuario.getLogin()) != null) {
 			model.addAttribute("loginExiste", "Login já existe cadastrado");
-			return "/publica-criar-usuario";
+			return RETURN_CRIAR_USUARIO;
 		}
 		usuarioService.gravarUsuario(usuario);
 
@@ -80,7 +86,7 @@ public class UsuarioController {
 	public String deleteUser(@PathVariable("id") long id, Model model) {
 		usuarioService.apagarUsuarioPorId(id);
 		
-		return "redirect:/usuario/admin/listar";
+		return REDIRECT_LISTAR;
 	}
 
 	@GetMapping("/editar/{id}")
@@ -88,17 +94,17 @@ public class UsuarioController {
 		Usuario usuario = usuarioService.buscarUsuarioPorId(id);
 		model.addAttribute("usuario", usuario);
 
-		return "/auth/user/user-alterar-usuario";
+		return RETURN_ALTERAR_URUARIO;
 	}
 
 	@PostMapping("/editar/{id}")
 	public String editarUsuario(@PathVariable("id") long id, @Valid Usuario usuario, BindingResult result) {
 		if (result.hasErrors()) {
 			usuario.setId(id);
-			return "/auth/user/user-alterar-usuario";
+			return RETURN_ALTERAR_URUARIO;
 		}
 		usuarioService.alterarUsuario(usuario);
-		return "redirect:/usuario/admin/listar";
+		return REDIRECT_LISTAR;
 	}
 
 	@GetMapping("/editarRole/{id}")
@@ -120,7 +126,7 @@ public class UsuarioController {
 		} else {
 			usuarioService.atribuirPapelParaUsuario(idUsuario, rls, usuario.isAtivo());
 		}
-		return "redirect:/usuario/admin/listar";
+		return REDIRECT_LISTAR;
 	}
 
 	private boolean temAutorizacao(Usuario usuario, String role) {

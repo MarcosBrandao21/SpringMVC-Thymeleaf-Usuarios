@@ -44,19 +44,25 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Usuario buscarUsuarioPorLogin(String login) {
-		return repository.findByLogin(login);
+		Usuario usuario = repository.findByLogin(login);
+		if (usuario != null) {
+			return usuario;
+		} else {
+			throw new IllegalArgumentException("Não existe usuario com esse login: " + login);
+		}
 	}
 
 	@Override
 	public Usuario gravarUsuario(Usuario usuario) {
 		Role role = roleService.buscarRole(USER);
-		List<Role> roles = new ArrayList<Role>();
-		roles.add(role);
-		usuario.setRoles(roles);
+		if(role != null) {
+			List<Role> roles = new ArrayList<>();
+			roles.add(role);
+			usuario.setRoles(roles);
+		}
 
 		String senhaCriptografada = criptografia.encode(usuario.getPassword());
 		usuario.setPassword(senhaCriptografada);
-
 		return repository.save(usuario);
 	}
 
