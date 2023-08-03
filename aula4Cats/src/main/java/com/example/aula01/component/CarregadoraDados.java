@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import com.example.aula01.enums.RolesEnum;
 import com.example.aula01.modelo.Role;
 import com.example.aula01.repository.RoleRepository;
 
@@ -16,7 +17,9 @@ public class CarregadoraDados implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		String[] roles = { "ADMIN", "USER", "BIBLIOTECARIO" };
+		String[] roles = { RolesEnum.ADMIN.getgetValor(), 
+						   RolesEnum.USER.getgetValor(), 
+						   RolesEnum.BIBLIOTECARIO.getgetValor() };
 
 		for (String roleString : roles) {
 			Role role = roleRepository.findByRole(roleString);

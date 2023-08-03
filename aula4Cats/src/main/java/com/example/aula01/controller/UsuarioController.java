@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.example.aula01.enums.ConstantesEnum;
+import com.example.aula01.enums.RolesEnum;
 import com.example.aula01.modelo.Role;
 import com.example.aula01.modelo.Usuario;
 import com.example.aula01.service.RoleService;
@@ -31,6 +33,8 @@ public class UsuarioController {
 	@Autowired
 	private RoleService roleService;
 	
+	private static final String MODEL_USUARIO = "usuario";
+	
 	private static final String RETURN_CRIAR_USUARIO= "/publica-criar-usuario";
 	
 	private static final String REDIRECT_LISTAR = "redirect:/usuario/admin/listar";
@@ -43,11 +47,11 @@ public class UsuarioController {
 		Usuario usuario = usuarioService.buscarUsuarioPorLogin(login);
 
 		String redirectURL = "";
-		if (temAutorizacao(usuario, "ADMIN")) {
+		if (temAutorizacao(usuario, RolesEnum.ADMIN.getgetValor())) {
 			redirectURL = "/auth/admin/admin-index";
-		} else if (temAutorizacao(usuario, "USER")) {
+		} else if (temAutorizacao(usuario, RolesEnum.USER.getgetValor())) {
 			redirectURL = "/auth/user/user-index";
-		} else if (temAutorizacao(usuario, "BIBLIOTECARIO")) {
+		} else if (temAutorizacao(usuario, RolesEnum.BIBLIOTECARIO.getgetValor())) {
 			redirectURL = "/auth/bibliotecario/bibliotecario-index";
 		}
 		return redirectURL;
@@ -55,7 +59,7 @@ public class UsuarioController {
 
 	@GetMapping("/novo")
 	public String adicionarUsuario(Model model) {
-		model.addAttribute("usuario", new Usuario());
+		model.addAttribute(MODEL_USUARIO, new Usuario());
 		return RETURN_CRIAR_USUARIO;
 	}
 
@@ -72,7 +76,8 @@ public class UsuarioController {
 		}
 		usuarioService.gravarUsuario(usuario);
 
-		attributes.addFlashAttribute("mensagem", "Usuario salvo com sucesso!");
+		attributes.addFlashAttribute(ConstantesEnum.AlertaEnum.MENSAGEM.getgetValor(), 
+									 "Usuario salvo com sucesso!");
 		return "redirect:/usuario/novo";
 	}
 
@@ -92,7 +97,7 @@ public class UsuarioController {
 	@GetMapping("/editar/{id}")
 	public String editarUsuario(@PathVariable("id") long id, Model model) {
 		Usuario usuario = usuarioService.buscarUsuarioPorId(id);
-		model.addAttribute("usuario", usuario);
+		model.addAttribute(MODEL_USUARIO, usuario);
 
 		return RETURN_ALTERAR_URUARIO;
 	}
@@ -111,7 +116,7 @@ public class UsuarioController {
 	public String selecionarRole(@PathVariable("id") long id, Model model) {
 		Usuario usuario = usuarioService.buscarUsuarioPorId(id);
 		List<Role> roles = roleService.listarRole();
-		model.addAttribute("usuario", usuario);
+		model.addAttribute(MODEL_USUARIO, usuario);
 		model.addAttribute("listaRoles", roles);
 		return "/auth/admin/admin-editar-role-usuario";
 	}
@@ -121,7 +126,8 @@ public class UsuarioController {
 			@RequestParam(value = "rls", required = false) int[] rls, Usuario usuario, RedirectAttributes attributes) {
 		if (rls == null || rls.length > 1) {
 			usuario.setId(idUsuario);
-			attributes.addFlashAttribute("mensagem", "Uma Role deve selecionada!");
+			attributes.addFlashAttribute(ConstantesEnum.AlertaEnum.MENSAGEM.getgetValor(), 
+										 "Uma Role deve selecionada!");
 			return "redirect:/usuario/editarRole/" + idUsuario;
 		} else {
 			usuarioService.atribuirPapelParaUsuario(idUsuario, rls, usuario.isAtivo());

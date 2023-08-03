@@ -15,6 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+import com.example.aula01.enums.ConstantesEnum;
+import com.example.aula01.enums.RolesEnum;
 import com.example.aula01.repository.UsuarioRepository;
 
 @Configuration
@@ -43,10 +45,12 @@ public class ConfiguracaoSeguranca  extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/").permitAll()
-		.antMatchers("/auth/user/*").hasAnyAuthority("USER","ADMIN","BIBLIOTECARIO")
-		.antMatchers("/auth/admin/*").hasAnyAuthority("ADMIN")
-		.antMatchers("/auth/bibliotecario/*").hasAnyAuthority("BIBLIOTECARIO")
-		.antMatchers("/usuario/admin/*").hasAnyAuthority("ADMIN")
+		.antMatchers(ConstantesEnum.AcessosEnum.URL_USER.getgetValor()).hasAnyAuthority(RolesEnum.USER.getgetValor()
+																			,RolesEnum.ADMIN.getgetValor()
+																			,RolesEnum.BIBLIOTECARIO.getgetValor())
+		.antMatchers(ConstantesEnum.AcessosEnum.URL_ADMIN.getgetValor()).hasAnyAuthority(RolesEnum.ADMIN.getgetValor())
+		.antMatchers(ConstantesEnum.AcessosEnum.URL_BIBLIOTECARIO.getgetValor()).hasAnyAuthority(RolesEnum.BIBLIOTECARIO.getgetValor())
+		.antMatchers("/usuario/admin/*").hasAnyAuthority(RolesEnum.ADMIN.getgetValor())
 		.and()
 		.exceptionHandling().accessDeniedPage("/auth/auth-acesso-negado")
 		.and()
@@ -84,26 +88,4 @@ public class ConfiguracaoSeguranca  extends WebSecurityConfigurerAdapter{
 	public HttpSessionEventPublisher httpSessionEventPublisher() {
 	    return new HttpSessionEventPublisher();
 	}
-	
-
-//	@Bean
-//	protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//		http.authorizeHttpRequests()
-//			.antMatchers("/").permitAll()
-//			.antMatchers("/auth/user/*").hasAnyAuthority("USER","ADMIN","BIBLIOTECARIO")
-//			.antMatchers("/auth/admin/*").hasAnyRole("ADMIN")
-//			.antMatchers("/auth/bibliotecario/*").hasAnyRole("BIBLIOTECARIO")
-//			.antMatchers("/usuario/admin/*").hasAnyRole("ADMIN")
-//			.and()
-//			.exceptionHandling().accessDeniedPage("/auth/auth-acesso-negado")
-//			.and()
-//			.formLogin()
-//			.loginPage("/login").permitAll()
-//			.and()
-//			.logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//			.logoutSuccessUrl("/").permitAll();
-//		
-//		return http.build();
-//	}
-
 }
